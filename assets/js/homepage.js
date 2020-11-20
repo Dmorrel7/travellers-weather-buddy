@@ -24,10 +24,28 @@ var getCurrentWeather = function(city)
             // parse the fetch to json format
             response.json().then(function(data)
             {
+                displayWeather(data)
                 console.log(data);
-            })
+            });
         }
     });
-}
+};
+
+var displayWeather = function(data)
+{
+    var temp = document.querySelector("#current-temp");
+    var wind = document.querySelector("#current-wind-speed");
+    var humidity = document.querySelector("#current-humidity");
+    var uv = document.querySelector("#current-uv");
+    var currCity = document.querySelector("#current-city");
+    var currentCity = data.name;
+
+
+    currCity.textContent = currentCity + " " + moment().format("MM-DD-YYYY");
+    temp.textContent = Math.round(data.main.temp);
+    wind.textContent = Math.round(data.wind.speed);
+    humidity.textContent = data.main.humidity;
+
+};
 
 cityForm.addEventListener("submit", formHandler);
