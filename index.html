@@ -19,10 +19,10 @@
             <!-- City Search -->
             <div class="card m-3">
                 <h3 class="card-header">Search for a City</h3>
-                <form class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter City">
+                <form class="input-group" id="city-form">
+                    <input type="text" class="form-control" placeholder="Enter City" id="city-search">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit"><i class=" fas fa-search"></i></button>
+                        <button class="btn btn-outline-secondary" id="search-btn" type="submit"><i class=" fas fa-search"></i></button>
                     </div>
                 </form>
             </div>
@@ -32,13 +32,32 @@
                 <h3 class="card-header">Recent Cities</h3>
             </div>
         </div>
-
-        <!-- Current Forecast-->
         <div class="col m-3">
+
+            <!-- Current Forecast-->
             <div class="card">
-                <h3 class="card-header">
-                    Current Forecast
-                </h3>
+                <h3 class="card-header">Current Forecast</h3>
+                <div class="container">
+                    <div class="row">
+                        <h4 id="current-city"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Temperature: <span id="current-temp"></span>F</p>
+                            <p>Humidity: <span id="current-humidity"></span>%</p>
+                            <p>Wind Speed: <span id="current-wind-speed"></span>MPH</p>
+                            <p>UV Index: <span id="current-uv"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Five Day Forecast -->
+            <div class="card">
+                <h3 class="card-header">5-day Forecast:</h3>
+                <div class="forecast-wrapper">
+
+                </div>
             </div>
         </div>
     </main>
