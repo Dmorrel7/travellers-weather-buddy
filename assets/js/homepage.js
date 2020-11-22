@@ -29,21 +29,43 @@ var getCurrentWeather = function(city)
             // parse the fetch to json format
             response.json().then(function(data)
             {
-                displayWeather(data);
-                saveCity(city);
-                loadCities();
+                
+
+                var uvApiUrl = "http://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=af8fc128c23bcd35c1ad013855d92758";
+
+                fetch(uvApiUrl).then(function(response)
+                {
+                    if (response.ok)
+                    {
+                        response.json().then(function(uvData)
+                        {
+                            var uvIndex = uvData.value;
+
+
+
+                            displayWeather(data, uvIndex);
+                            saveCity(city);
+                            loadCities();
+                        });
+                    }
+
+                
+                });
             });
         }
+        
     });
+    
+    
 };
 
-var displayWeather = function(data)
+var displayWeather = function(data, index)
 {
     var temp = document.querySelector("#current-temp");
     var wind = document.querySelector("#current-wind-speed");
     var humidity = document.querySelector("#current-humidity");
-    var uv = document.querySelector("#current-uv");
     var currCity = document.querySelector("#current-city");
+    var currUv = document.querySelector("#current-uv");
     var currentCity = data.name;
 
 
@@ -51,12 +73,27 @@ var displayWeather = function(data)
     temp.textContent = Math.round(data.main.temp);
     wind.textContent = Math.round(data.wind.speed);
     humidity.textContent = data.main.humidity;
+    currUv.textContent = index;
 
+    // style UV
+    if(index <= 2)
+    {
+        currUv.className = "badge badge-success";
+    }
+    else if (index <= 5)
+    {
+        currUv.className = "badge badge-warning";
+    }
+    else if (index <= 7)
+    {
+        currUv.className = "badge badge-danger"
+    }
+    
 };
 
-var getForecast = function()
+var getForecast = function(city)
 {
-    var forecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=tampa&units=imperial&appid=af8fc128c23bcd35c1ad013855d92758"
+    var forecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=af8fc128c23bcd35c1ad013855d92758"
 
     fetch(forecastApiUrl).then(function(response)
     {
@@ -73,29 +110,42 @@ var getForecast = function()
 
 var displayForecast = function(data)
 {
+
+    forecastDiv.innerHTML = "";
+
     for (var i = 1; i < 6; i++)
     {
+        // creates div for card
         var forecastCol = document.createElement("div");
         forecastCol.className = "col";
         forecastDiv.appendChild(forecastCol);
 
+        // creates card for temp and humidity
         var forecastCard = document.createElement("div");
         forecastCard.className = "card";
         forecastCol.appendChild(forecastCard);
 
         var forecastDate = moment().add(i, 'd').format("MM/DD/YYYY");
 
-
+        // append date
         var forecastDates = document.createElement("h5");
         forecastDates.id = "date";
         forecastDates.textContent = forecastDate;
         forecastCard.appendChild(forecastDates);
 
+        // append icon
+        var forecastImg = document.createElement("img")
+        forecastImg.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png");
+        forecastImg.className = "align-middle";
+        forecastCard.appendChild(forecastImg);
+
+        // append temp
         var forecastTemp = document.createElement("p");
         forecastTemp.id = "forecast-temp";
         forecastTemp.textContent = "Temp: " + Math.round(data.list[i].main.temp) + " F";
         forecastCard.appendChild(forecastTemp);
 
+        // append humidity
         var forecastHumidity = document.createElement("p");
         forecastHumidity.id = "forecast-Humidity";
         forecastHumidity.textContent = "Humidity: " + data.list[i].main.humidity + "%";
