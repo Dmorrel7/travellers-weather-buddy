@@ -43,7 +43,7 @@ var getCurrentWeather = function(city)
             {
                 
 
-                var uvApiUrl = "http://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=af8fc128c23bcd35c1ad013855d92758";
+                var uvApiUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=af8fc128c23bcd35c1ad013855d92758";
 
                 fetch(uvApiUrl).then(function(response)
                 {
@@ -78,7 +78,7 @@ var displayWeather = function(data, index)
 
 
     currCity.textContent = currentCity + " " + moment().format("MM-DD-YYYY");
-    weatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+    weatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
     temp.textContent = Math.round(data.main.temp);
     wind.textContent = Math.round(data.wind.speed);
     humidity.textContent = data.main.humidity;
@@ -144,7 +144,7 @@ var displayForecast = function(data)
 
         // append icon
         var forecastImg = document.createElement("img")
-        forecastImg.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png");
+        forecastImg.setAttribute("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png");
         forecastImg.classList = "forecastImg d-flex justify-content-center";
         forecastCard.appendChild(forecastImg);
 
