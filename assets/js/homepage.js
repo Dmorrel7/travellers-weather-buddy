@@ -139,6 +139,7 @@ var displayForecast = function(data)
         // append date
         var forecastDates = document.createElement("h5");
         forecastDates.id = "date";
+        forecastDates.className = "align-center";
         forecastDates.textContent = forecastDate;
         forecastCard.appendChild(forecastDates);
 
