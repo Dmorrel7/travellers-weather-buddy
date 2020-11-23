@@ -18,7 +18,7 @@
 
             <!-- City Search -->
             <div class="card m-3">
-                <h3 class="card-header">Search for a City</h3>
+                <h3 class="card-header bg-primary text-white">Search for a City</h3>
                 <form class="input-group" id="city-form">
                     <input type="text" class="form-control" placeholder="Enter City" id="city-search">
                     <div class="input-group-append">
@@ -29,7 +29,7 @@
 
             <!-- Recent Cities -->
             <div class="card m-3" >
-                <h3 class="card-header">Recent Cities</h3>
+                <h3 class="card-header bg-primary text-white">Recent Cities</h3>
                 <div class="card m-3" id="recent-cities">
 
                 </div>
@@ -39,25 +39,25 @@
 
             <!-- Current Forecast-->
             <div class="card">
-                <h3 class="card-header">Current Forecast</h3>
-                <div class="container">
+                <h3 class="card-header bg-primary text-white">Current Forecast</h3>
+                <div class="container bg-info text-white mt-2">
                     <div class="row">
-                        <h4 id="current-city"></h4>
+                        <h4 id="current-city" class="m-3"></h4><img class="weather-icon" />
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p>Temperature: <span id="current-temp"></span>F</p>
-                            <p>Humidity: <span id="current-humidity"></span>%</p>
-                            <p>Wind Speed: <span id="current-wind-speed"></span>MPH</p>
-                            <p>UV Index: <span id="current-uv"></span></p>
+                            <p class="m-3">Temperature: <span id="current-temp"></span>F</p>
+                            <p class="m-3">Humidity: <span id="current-humidity"></span>%</p>
+                            <p class="m-3">Wind Speed: <span id="current-wind-speed"></span>MPH</p>
+                            <p class="m-3">UV Index: <span id="current-uv"></span></p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Five Day Forecast -->
-            <div class="card">
-                <h3 class="card-header">5-day Forecast:</h3>
+            <div class="card mt-2">
+                <h3 class="card-header bg-primary text-white">5-day Forecast:</h3>
                 <div class="container" id="container">
                     <div class="row" id="forecastDiv">
                         

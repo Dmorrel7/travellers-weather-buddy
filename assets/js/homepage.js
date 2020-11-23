@@ -15,6 +15,18 @@ var formHandler = function(event)
     {
         getCurrentWeather(cityName);
         getForecast(cityName);
+        citySearch.value = "";
+    }
+};
+
+var historyHandler = function(event)
+{
+    var historyBtn = event.target.getAttribute("value");
+
+    if (historyBtn)
+    {
+        getCurrentWeather(historyBtn);
+        getForecast(historyBtn);
     }
 };
 
@@ -48,15 +60,10 @@ var getCurrentWeather = function(city)
                             loadCities();
                         });
                     }
-
-                
                 });
             });
         }
-        
     });
-    
-    
 };
 
 var displayWeather = function(data, index)
@@ -66,10 +73,12 @@ var displayWeather = function(data, index)
     var humidity = document.querySelector("#current-humidity");
     var currCity = document.querySelector("#current-city");
     var currUv = document.querySelector("#current-uv");
+    var weatherIcon = document.querySelector(".weather-icon");
     var currentCity = data.name;
 
 
     currCity.textContent = currentCity + " " + moment().format("MM-DD-YYYY");
+    weatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
     temp.textContent = Math.round(data.main.temp);
     wind.textContent = Math.round(data.wind.speed);
     humidity.textContent = data.main.humidity;
@@ -117,12 +126,12 @@ var displayForecast = function(data)
     {
         // creates div for card
         var forecastCol = document.createElement("div");
-        forecastCol.className = "col";
+        forecastCol.className = "col col-lg";
         forecastDiv.appendChild(forecastCol);
 
         // creates card for temp and humidity
         var forecastCard = document.createElement("div");
-        forecastCard.className = "card";
+        forecastCard.className = "card bg-info text-white mt-1";
         forecastCol.appendChild(forecastCard);
 
         var forecastDate = moment().add(i, 'd').format("MM/DD/YYYY");
@@ -136,7 +145,7 @@ var displayForecast = function(data)
         // append icon
         var forecastImg = document.createElement("img")
         forecastImg.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png");
-        forecastImg.className = "align-middle";
+        forecastImg.classList = "forecastImg d-flex justify-content-center";
         forecastCard.appendChild(forecastImg);
 
         // append temp
@@ -171,7 +180,7 @@ var loadCities = function()
         for(var i = 0; i < newCities.length; i++)
         {
             var recentCities = document.createElement("button");
-            recentCities.className = "list-group-item";
+            recentCities.className = "list-group-item bg-secondary text-white mt-1";
             recentCities.setAttribute("value", newCities[i]);
             recentCities.textContent = newCities[i];
             recentCityEl.appendChild(recentCities);
@@ -183,4 +192,6 @@ if(localStorage.getItem("cities"))
 {
     loadCities();
 }
+
 cityForm.addEventListener("submit", formHandler);
+recentCityEl.addEventListener("click", historyHandler);
